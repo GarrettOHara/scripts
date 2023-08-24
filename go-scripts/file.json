@@ -1,0 +1,17 @@
+{
+	"aws-target-account-id": "312498070417",
+	"aws-role-arn": "arn:aws:iam::312498070417:role/terratestdbreload-db-reloads-source-mssql",
+	"aws-role-arn-target": "arn:aws:iam::312498070417:role/terratestdbreload-db-reloads-target-mssql",
+	"aws-role-arn-source": "arn:aws:iam::312498070417:role/terratestdbreload-db-reloads-source-mssql",
+	"db-reload-step": "take_snapshot",
+	"status-code": 500,
+	"db-password-ssm-path": "/terratestdbreloadmssqlstage/master_password",
+	"db-snapshot-identifier": "terratestdbreloadmssqlprod-snapshot",
+	"source-db-instance-identifier": "terratestdbreloadmssqlprod",
+	"temp-db-instance-identifier": "temp-terratestdbreloadmssqlstage",
+	"db-instance-identifier": "terratestdbreloadmssqlstage",
+	"region": "us-east-1",
+	"application": "mssql",
+	"environment": "dev",
+	"instance-id": "terratestdbreloadmssqlstage"
+}
