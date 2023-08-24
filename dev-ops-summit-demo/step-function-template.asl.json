@@ -1,0 +1,40 @@
+{
+  "Comment": "DevOps Summit Demo",
+  "StartAt": "Query EC2 Resource",
+  "States": {
+    "Query EC2 Resource": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:us-east-1:312498070417:function:DevOpsSummitDemo",
+      "Next": "Check Query Response"
+    },
+    "Check Query Response": {
+      "Type": "Choice",
+      "Choices": [
+        {
+          "Variable": "$.response",
+          "StringEquals": "running",
+          "Next": "EC2 is Available"
+        },
+        {
+          "Variable": "$.response",
+          "StringEquals": "pending",
+          "Next": "Wait for EC2 booting"
+        },
+        {
+          "Variable": "$.response",
+          "StringEquals": "stopped",
+          "Next": "Wait for EC2 booting"
+        }
+      ]
+    },
+    "Wait for EC2 booting": {
+      "Type": "Wait",
+      "Seconds": 1,
+      "Next": "Query EC2 Resource"
+    },
+    "EC2 is Available": {
+      "Type": "Pass",
+      "End": true
+    }
+  }
+}

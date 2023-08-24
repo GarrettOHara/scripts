@@ -1,0 +1,2 @@
+errorMessage: An error occurred (UnauthorizedOperation) when calling the DescribeInstanceStatus operation: You are not authorized to perform this operation.,
+  errorType: ClientError,
