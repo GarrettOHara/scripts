@@ -6,7 +6,9 @@ from botocore.exceptions import ClientError
 
 
 import warnings
-warnings.filterwarnings('ignore', category=FutureWarning, module='botocore.client')
+
+warnings.filterwarnings("ignore", category=FutureWarning, module="botocore.client")
+
 
 def instantiate_rds_client(profile, region):
     """
@@ -33,13 +35,14 @@ def instantiate_rds_client(profile, region):
     """
     try:
         boto_session = boto3.Session(profile_name=profile, region_name=region)
-        boto_client  = boto_session.client("rds")
+        boto_client = boto_session.client("rds")
 
     except ClientError as error:
         print(f"There was an error instantiating the boto3 client: {error}")
         raise error
-    
+
     return boto_client
+
 
 def describe_snapshots(client, retention_period=30, max=100):
     """
@@ -72,25 +75,28 @@ def describe_snapshots(client, retention_period=30, max=100):
 
     # iterate until to delete is 0
     while snaps_deleted != 0:
-        
         try:
             response = client.describe_db_snapshots(
-                SnapshotType='manual',
-                MaxRecords=max
+                SnapshotType="manual", MaxRecords=max
             )
         except client.exceptions.DBSnapshotNotFoundFault:
             print("There are no manual snapshots. Program exiting...")
             sys.exit(0)
 
         current_timestamp = datetime.now()
-        current_timestamp = datetime.strptime(str(current_timestamp),  "%Y-%m-%d %H:%M:%S.%f")
-        
-        for snap in response["DBSnapshots"]:
+        current_timestamp = datetime.strptime(
+            str(current_timestamp), "%Y-%m-%d %H:%M:%S.%f"
+        )
 
+        for snap in response["DBSnapshots"]:
             # transfer timestamps into python datetime objects to compare
-            snapshot_timestamp = str(re.sub("\+(.*)","",str(snap["SnapshotCreateTime"])))
-            snapshot_timestamp = datetime.strptime(snapshot_timestamp, "%Y-%m-%d %H:%M:%S.%f")
-            
+            snapshot_timestamp = str(
+                re.sub("\+(.*)", "", str(snap["SnapshotCreateTime"]))
+            )
+            snapshot_timestamp = datetime.strptime(
+                snapshot_timestamp, "%Y-%m-%d %H:%M:%S.%f"
+            )
+
             # extract time delta in days
             delta = (current_timestamp - snapshot_timestamp).days
 
@@ -109,13 +115,12 @@ def describe_snapshots(client, retention_period=30, max=100):
                 #     print(f"There was an error deleting {snap["DBSnapshotIdentifier"]}. Program continuing...")
                 #     continue
 
-        
         print(f"\nDELETED {snaps_deleted} SNAPSHOTS\n")
 
         # TODO: remove break statement, let snaps_deleted satisfy while loop condition.
         break
 
-   
+
 if __name__ == "__main__":
     client = instantiate_rds_client("aes-prod", "us-east-1")
     describe_snapshots(client)

@@ -4,6 +4,4 @@ echo "Please pass in parameters to script in this order: ./describe_rds.sh <REGI
 
 aws rds describe-db-instances \
 	--region  $1 \
-	--profile $2 \
-	--db-instance-identifier $3
-
+	--profile $2
