@@ -1,14 +1,16 @@
 import sys
 
+
 def split_and_print_words(file_path):
     try:
-        with open(file_path, 'r') as file:
+        with open(file_path, "r") as file:
             content = file.read()
-            words = content.split(',')
+            words = content.split(",")
             for word in words:
                 print(word.strip())
     except FileNotFoundError:
         print(f"File not found: {file_path}")
+
 
 # Check if a file path is provided as a command-line argument
 if len(sys.argv) < 2:
@@ -16,4 +18,3 @@ if len(sys.argv) < 2:
 else:
     file_path = sys.argv[1]
     split_and_print_words(file_path)
-

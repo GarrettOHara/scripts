@@ -10,7 +10,9 @@ rds_instances = client.describe_db_instances()
 
 for instance in rds_instances["DBInstances"]:
     if "terratest" in instance["DBInstanceIdentifier"]:
-        res = input(f"Do you want to delete {instance['DBInstanceIdentifier']} [y or N]?: ")
+        res = input(
+            f"Do you want to delete {instance['DBInstanceIdentifier']} [y or N]?: "
+        )
         if "y" in res.lower():
             client.delete_db_instance(
                 DBInstanceIdentifier=instance["DBInstanceIdentifier"],

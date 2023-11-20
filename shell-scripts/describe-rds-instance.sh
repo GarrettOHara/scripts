@@ -1,7 +1,9 @@
-#!/bin/bash
+#!/bin/zsh
+
+echo "Please pass in parameters to script in this order: ./describe_rds.sh <REGION> <PROFILE> <INSTANCE_NAME>"
 
 aws rds describe-db-instances \
-	--region $1 \
-	--db-instance-identifier $2 \
-	--query 'DBInstances[0].Endpoint.Address' \
-	--output text
+	--region  $1 \
+	--profile $2 \
+	--db-instance-identifier $3
+
