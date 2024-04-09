@@ -15,19 +15,21 @@ for profile in profiles:
         session = boto3.Session(profile_name=profile, region_name=region)
         client = session.client("es")
         print(f"{region} region")
-        
+
         for domain in domain_list:
-            response = client.describe_elasticsearch_domains(DomainNames=[domain])["DomainStatusList"]
+            response = client.describe_elasticsearch_domains(DomainNames=[domain])[
+                "DomainStatusList"
+            ]
             if len(response) > 0:
                 response = response[0]
-                print(response['DomainName'])
-                print(response['ARN'])
+                print(response["DomainName"])
+                print(response["ARN"])
                 if "Endpoint" in response:
                     print(response["Endpoint"])
                 if "Endpoints" in response:
                     print(response["Endpoints"]["vpc"])
                 print("\n")
-             
+
             else:
                 print(f"No clusters in {region} in account {profile}")
         print("\n")

@@ -50,7 +50,7 @@ for line in lines:
     pull_request_creator = requests.get(url, headers=headers).json()["user"]["login"]
 
     # If Pull Request is not opened by USERNAME, skip to next PR
-    if pull_request_creator != USERNAME:
+    if pull_request_creator != cSERNAME:
         print(
             f"Skipping {url} because Pull Request was opened by {pull_request_creator}"
         )
