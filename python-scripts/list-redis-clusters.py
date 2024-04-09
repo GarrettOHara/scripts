@@ -48,5 +48,5 @@ for key, value in config.items():
     for item in value:
         for i in item:
             print(i)
-            f.write(i+"\n")
+            f.write(i + "\n")
     f.close()

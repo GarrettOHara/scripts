@@ -42,7 +42,7 @@ if __name__ == "__main__":
     if kms_key_id == "":
         response = rds_client("se-dev", "us-east-1").copy_db_snapshot(
             SourceDBSnapshotIdentifier=snapshot_arn,
-            TargetDBSnapshotIdentifier=snapshot_arn + "-copy",
+            TargetDBSnapshotIdentifier="test-snapshot-copy",
         )
     else:
         response = rds_client("se-dev", "us-east-1").copy_db_snapshot(
