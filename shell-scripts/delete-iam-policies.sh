@@ -8,18 +8,19 @@ fi
 
 # Check if required arguments are provided
 if [ $# -ne 1 ]; then
-    echo "Usage: $0 <aws_profile> <aws_region>"
+    echo "Usage: $0 <aws_profile>"
     exit 1
 fi
 
-# Extract the arguments
+# Extract the argument
 aws_profile=$1
-# aws_region=$2
 
 # Set AWS profile and region for AWS CLI commands
 export AWS_PROFILE=$aws_profile
-# export AWS_DEFAULT_REGION=$aws_region
 
+# Extract the Account ID
+aws_account_id=$(aws sts get-caller-identity | jq -r ."Account")
+echo $aws_account_id
 # Get the list of IAM policies starting with the prefix "terratest"
 policy_names=$(aws iam list-policies --query "Policies[?starts_with(PolicyName, 'terratest')].PolicyName" --output text)
 
