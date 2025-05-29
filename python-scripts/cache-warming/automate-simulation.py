@@ -19,6 +19,7 @@ BASE_OUTPUT    = "simulated-data.json"
 
 def main():
     # Optional: allow overrides via command-line
+    print("Run program with: '% python3 automate-simulation.py 10000 10' to match results.csv")
     global INITIAL_SIZE, ITERATIONS
     if len(sys.argv) == 3:
         INITIAL_SIZE = int(sys.argv[1])
