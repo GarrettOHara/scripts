@@ -62,7 +62,7 @@ def delete_iam_policies_with_string(profile_name, string, aws_account_id):
 def main():
     # Check if the number of arguments is correct
     if len(sys.argv) != 4:
-        print("UPlease pass in <AWS_PROFILE> and <POLICY_CONTAINING_STRING>")
+        print("UPlease pass in <AWS_PROFILE> and <POLICY_CONTAINING_STRING> and <AWS_ACCOUNT_ID>")
         sys.exit(1)
 
     profile_name = sys.argv[1]
