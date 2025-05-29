@@ -1,0 +1,402 @@
+[
+    {
+        "cache_key": "recommend_data_source:recommend_movies_or_tv_shows_to_watch",
+        "timestamp": "2025-05-16T14:25:36.836331276Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:28:15.185035326Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:28:24.608370058Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:28:26.153623138Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_action_movies",
+        "timestamp": "2025-05-16T14:28:42.746311468Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_action_movies",
+        "timestamp": "2025-05-16T14:28:44.055542339Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_movies_currently_in_theaters",
+        "timestamp": "2025-05-16T14:28:47.093862474Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_in_theaters",
+        "timestamp": "2025-05-16T14:28:49.567263905Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_best_movies_or_tv_shows_to_watch_now",
+        "timestamp": "2025-05-16T14:28:52.194481999Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movie_releases",
+        "timestamp": "2025-05-16T14:28:54.115083718Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movies_released_or_in_theaters",
+        "timestamp": "2025-05-16T14:28:55.064474719Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:28:57.331283796Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:28:59.272047018Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_latest_blockbuster_films_currently_in_theaters_or_upcoming_with_details_and_popularity",
+        "timestamp": "2025-05-16T14:29:02.541137859Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_the_latest_blockbuster_films_currently_in_theaters_or_recently_released",
+        "timestamp": "2025-05-16T14:29:04.989771836Z"
+    },
+    {
+        "cache_key": "recommend_data_source:current_trending_movies_in_theaters_and_popular_releases",
+        "timestamp": "2025-05-16T14:29:07.474575726Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_trending_movies_in_theaters_and_popular_releases",
+        "timestamp": "2025-05-16T14:29:08.923658341Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_family_night",
+        "timestamp": "2025-05-16T14:29:13.647650932Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_a_family_night",
+        "timestamp": "2025-05-16T14:29:14.051154439Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_the_best_movies_of_all_time_ranked_or_highly_rated",
+        "timestamp": "2025-05-16T14:29:19.194185709Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_best_movies_of_all_time_ranked_or_highly_rated",
+        "timestamp": "2025-05-16T14:29:19.206367192Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:29:23.738162093Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:29:24.554673758Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_of_movies_that_have_won_oscars",
+        "timestamp": "2025-05-16T14:29:28.37009422Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_of_movies_that_have_won_oscars",
+        "timestamp": "2025-05-16T14:29:30.276528918Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:29:34.386675166Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:29:34.50553642Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_by_critics_and_audience_scores",
+        "timestamp": "2025-05-16T14:29:39.251201922Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:29:39.704789546Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:29:42.985412106Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:29:44.823259124Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_playing_in_theaters",
+        "timestamp": "2025-05-16T14:29:47.144149467Z"
+    },
+    {
+        "cache_key": "recommend_data_source:provide_summaries_of_the_latest_movie_releases",
+        "timestamp": "2025-05-16T14:29:56.805302097Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summarize_latest_movie_releases",
+        "timestamp": "2025-05-16T14:30:05.288937679Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_best_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:30:32.776992331Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:30:40.117398808Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:30:40.783321957Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_popular_and_highly_rated_action_movies",
+        "timestamp": "2025-05-16T14:30:44.701356694Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:35:13.206815204Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:35:13.899926009Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:35:18.438375158Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:35:19.193930521Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:35:22.779987433Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_action_movies",
+        "timestamp": "2025-05-16T14:35:23.990207068Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_in_theaters",
+        "timestamp": "2025-05-16T14:35:28.369686477Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_playing_in_theaters",
+        "timestamp": "2025-05-16T14:35:32.448842521Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movies_released_or_in_theaters",
+        "timestamp": "2025-05-16T14:35:37.093533859Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movie_releases",
+        "timestamp": "2025-05-16T14:35:41.85173829Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:35:46.051982215Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:35:47.753084985Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_and_describe_the_latest_blockbuster_films_currently_in_theaters_or_recently_released",
+        "timestamp": "2025-05-16T14:35:52.371070737Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_latest_blockbuster_films_in_theaters_or_upcoming_releases",
+        "timestamp": "2025-05-16T14:35:53.180475529Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_trending_movies_currently_popular_and_in_theaters",
+        "timestamp": "2025-05-16T14:35:55.873865566Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_trending_movies_in_theaters_and_popular_releases",
+        "timestamp": "2025-05-16T14:35:57.878362694Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_a_family_night",
+        "timestamp": "2025-05-16T14:36:00.981762595Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_a_family_night",
+        "timestamp": "2025-05-16T14:36:02.11735164Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_best_movies_of_all_time_top_rated_and_critically_acclaimed",
+        "timestamp": "2025-05-16T14:36:07.504462346Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_best_movies_of_all_time_by_critics_and_audience_ratings",
+        "timestamp": "2025-05-16T14:36:07.703785197Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:36:12.283722911Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:36:12.505591647Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_of_movies_that_have_won_oscars",
+        "timestamp": "2025-05-16T14:36:16.366810314Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_movies_that_have_won_oscars",
+        "timestamp": "2025-05-16T14:36:17.727738438Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:36:21.282166341Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:36:21.859955532Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_best_movies_or_tv_shows_to_watch_now",
+        "timestamp": "2025-05-16T14:36:25.104426652Z"
+    },
+    {
+        "cache_key": "metadata_data_source:top_rated_movies_released_in_2023_by_critics_and_audience_scores",
+        "timestamp": "2025-05-16T14:36:26.871211888Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:36:28.534497841Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_action_movies",
+        "timestamp": "2025-05-16T14:36:32.070975393Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:36:32.405642226Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_in_theaters",
+        "timestamp": "2025-05-16T14:36:35.984805445Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movies_released_or_upcoming",
+        "timestamp": "2025-05-16T14:36:55.336057719Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:38:25.428085481Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:38:27.191605275Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:38:30.024206289Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:38:36.538660959Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_popular_and_highly_rated_action_movies",
+        "timestamp": "2025-05-16T14:38:38.18747967Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_in_theaters",
+        "timestamp": "2025-05-16T14:38:41.976298622Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:38:43.748108823Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:39:05.250820171Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_comedy_movies_to_watch_this_weekend",
+        "timestamp": "2025-05-16T14:39:11.976512801Z"
+    },
+    {
+        "cache_key": "metadata_data_source:list_top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:39:16.882833093Z"
+    },
+    {
+        "cache_key": "metadata_data_source:top_rated_movies_released_in_2023_with_ratings_and_scores",
+        "timestamp": "2025-05-16T14:39:21.236438208Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:39:24.648069872Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_top_action_movies",
+        "timestamp": "2025-05-16T14:39:24.946090548Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_movies_currently_in_theaters",
+        "timestamp": "2025-05-16T14:39:33.921194096Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_current_movies_now_playing_in_theaters",
+        "timestamp": "2025-05-16T14:39:34.179033541Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movies_released_or_upcoming_in_theaters",
+        "timestamp": "2025-05-16T14:39:45.85380194Z"
+    },
+    {
+        "cache_key": "recommend_data_source:summary_of_latest_movies_released_or_upcoming",
+        "timestamp": "2025-05-16T14:39:47.059638157Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:39:54.642720106Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_good_movies_to_watch",
+        "timestamp": "2025-05-16T14:39:56.201703002Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_and_describe_the_latest_blockbuster_films_in_theaters_or_recently_released",
+        "timestamp": "2025-05-16T14:40:04.124390393Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_latest_blockbuster_films_in_theaters_or_upcoming_releases",
+        "timestamp": "2025-05-16T14:40:06.12613031Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_trending_movies_currently_popular_and_in_theaters",
+        "timestamp": "2025-05-16T14:40:13.846820852Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_trending_movies_currently_popular_in_theaters_or_online",
+        "timestamp": "2025-05-16T14:40:15.734996662Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_family_night",
+        "timestamp": "2025-05-16T14:40:25.061618096Z"
+    },
+    {
+        "cache_key": "recommend_data_source:recommend_family_friendly_movies_for_a_family_night",
+        "timestamp": "2025-05-16T14:40:25.110296645Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_best_movies_of_all_time",
+        "timestamp": "2025-05-16T14:40:34.235665223Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_of_best_movies_of_all_time_ranked_or_highly_rated",
+        "timestamp": "2025-05-16T14:40:34.7260031Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:40:45.332349996Z"
+    },
+    {
+        "cache_key": "recommend_data_source:list_must_watch_films_from_the_past_decade",
+        "timestamp": "2025-05-16T14:40:45.634117973Z"
+    }
+]
