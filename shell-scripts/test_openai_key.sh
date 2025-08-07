@@ -2,7 +2,6 @@
 
 # Use existing env var
 API_KEY="${OPENAI_API_KEY}"
-API_KEY="***REMOVED***"
 MODEL="gpt-4"
 ENDPOINT="https://api.openai.com/v1/chat/completions"
 
