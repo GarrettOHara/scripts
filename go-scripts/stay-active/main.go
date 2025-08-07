@@ -15,8 +15,9 @@ import (
 // activeService holds the state and configuration for our service.
 type activeService struct {
 	lastActivityTime time.Time
-	mu               sync.Mutex // Protects lastActivityTime from concurrent access
+	lastJiggleTime   time.Time
 	idleDelay        time.Duration
+	mu               sync.Mutex // Protects lastActivityTime and lastJiggleTime from concurrent access
 }
 
 // updateLastActivity safely sets the last activity time to now.
@@ -42,6 +43,15 @@ func (s *activeService) startListeners() {
 	for e := range events {
 		// Any event (mouse move, click, key press, etc.) counts as activity.
 		if e.Kind > 0 {
+			// Debug: Log what type of event was detected
+			fmt.Printf(
+				"🔍 [%s] Activity detected - Kind: %d, Keycode: %d, X: %d, Y: %d\n",
+				time.Now().Format("15:04:05"),
+				e.Kind,
+				e.Keycode,
+				e.X,
+				e.Y,
+			)
 			s.updateLastActivity()
 		}
 	}
@@ -58,6 +68,11 @@ func (s *activeService) jiggleMouse() {
 	robotgo.MoveRelative(1, 1)
 	time.Sleep(100 * time.Millisecond)
 	robotgo.MoveRelative(-1, -1)
+
+	// Track when we jiggled
+	s.mu.Lock()
+	s.lastJiggleTime = time.Now()
+	s.mu.Unlock()
 }
 
 func main() {
@@ -68,6 +83,7 @@ func main() {
 	// 2. Create and configure the service instance.
 	service := &activeService{
 		lastActivityTime: time.Now(),
+		lastJiggleTime:   time.Time{}, // Zero time means never jiggled
 		idleDelay:        time.Duration(*delayMinutes * float64(time.Minute)),
 	}
 
@@ -88,13 +104,35 @@ func main() {
 	// 5. Run the main loop to check for idleness.
 	jiggleInterval := 30 * time.Second
 	for {
-		if service.isUserIdle() {
+		service.mu.Lock()
+		timeSinceActivity := time.Since(service.lastActivityTime)
+		timeSinceJiggle := time.Since(service.lastJiggleTime)
+		isIdle := timeSinceActivity > service.idleDelay
+		canJiggle := service.lastJiggleTime.IsZero() || timeSinceJiggle > jiggleInterval
+		service.mu.Unlock()
+
+		if isIdle && canJiggle {
 			service.jiggleMouse()
-			// After jiggling, wait for the full interval before checking again.
-			time.Sleep(jiggleInterval)
 		} else {
-			// If the user is active, check again in a second to be responsive.
-			time.Sleep(1 * time.Second)
+			// Always show countdown - either for activity or for next jiggle
+			if isIdle && !canJiggle {
+				// User is idle but we're in jiggle cooldown
+				timeUntilNextJiggle := jiggleInterval - timeSinceJiggle
+				fmt.Printf("⏳ [%s] Idle but cooling down - %.1fs until next jiggle\n",
+					time.Now().Format("15:04:05"),
+					timeUntilNextJiggle.Seconds())
+			} else {
+				// User is active - show normal countdown
+				fmt.Printf(
+					"⏱️ [%s] User inactive - %.1fs since "+
+						"last activity (need %.1fs)\n",
+					time.Now().Format("15:04:05"),
+					timeSinceActivity.Seconds(),
+					service.idleDelay.Seconds())
+			}
 		}
+
+		// Always check again in a second to be responsive
+		time.Sleep(1 * time.Second)
 	}
 }
