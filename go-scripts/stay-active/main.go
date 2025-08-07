@@ -17,7 +17,8 @@ type activeService struct {
 	lastActivityTime time.Time
 	lastJiggleTime   time.Time
 	idleDelay        time.Duration
-	mu               sync.Mutex // Protects lastActivityTime and lastJiggleTime from concurrent access
+	verboseMode      bool
+	mu               sync.Mutex
 }
 
 // updateLastActivity safely sets the last activity time to now.
@@ -43,15 +44,17 @@ func (s *activeService) startListeners() {
 	for e := range events {
 		// Any event (mouse move, click, key press, etc.) counts as activity.
 		if e.Kind > 0 {
-			// Debug: Log what type of event was detected
-			fmt.Printf(
-				"🔍 [%s] Activity detected - Kind: %d, Keycode: %d, X: %d, Y: %d\n",
-				time.Now().Format("15:04:05"),
-				e.Kind,
-				e.Keycode,
-				e.X,
-				e.Y,
-			)
+			// Debug: Log what type of event was detected (only in debug mode)
+			if s.verboseMode {
+				fmt.Printf(
+					"🔍 [%s] Activity detected - Kind: %d, Keycode: %d, X: %d, Y: %d\n",
+					time.Now().Format("15:04:05"),
+					e.Kind,
+					e.Keycode,
+					e.X,
+					e.Y,
+				)
+			}
 			s.updateLastActivity()
 		}
 	}
@@ -76,8 +79,9 @@ func (s *activeService) jiggleMouse() {
 }
 
 func main() {
-	// 1. Define and parse the command-line flag for idle delay.
+	// 1. Define and parse the command-line flags.
 	delayMinutes := flag.Float64("delay", 2.0, "The user idle time in minutes before the mouse starts jiggling.")
+	verboseMode := flag.Bool("verbose", false, "Enable verbose mode to show detailed activity logs.")
 	flag.Parse()
 
 	// 2. Create and configure the service instance.
@@ -85,6 +89,7 @@ func main() {
 		lastActivityTime: time.Now(),
 		lastJiggleTime:   time.Time{}, // Zero time means never jiggled
 		idleDelay:        time.Duration(*delayMinutes * float64(time.Minute)),
+		verboseMode:      *verboseMode,
 	}
 
 	fmt.Printf("✅ Service initialized. Will jiggle mouse after %.1f minute(s) of inactivity.\n", *delayMinutes)
@@ -113,8 +118,8 @@ func main() {
 
 		if isIdle && canJiggle {
 			service.jiggleMouse()
-		} else {
-			// Always show countdown - either for activity or for next jiggle
+		} else if service.verboseMode {
+			// Show countdown only in debug mode - either for activity or for next jiggle
 			if isIdle && !canJiggle {
 				// User is idle but we're in jiggle cooldown
 				timeUntilNextJiggle := jiggleInterval - timeSinceJiggle
