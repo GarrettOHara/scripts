@@ -1,6 +1,8 @@
 # Ignore text files
 **/*.txt
 
+**/*.DS_store
+
 # Ignore python virtual environments
 **/venv/
 
