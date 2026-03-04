@@ -1,0 +1,209 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_FILE="$SCRIPT_DIR/ecs-logs.json"
+FOLLOW=true
+SINCE="1h"
+PROFILE=""
+REGION=""
+
+usage() {
+  cat <<EOF
+Usage: ecs-logs [OPTIONS]
+
+Interactively tail ECS service logs across AWS accounts.
+
+Options:
+  --profile PROFILE   AWS profile name (skip account picker)
+  --region REGION     AWS region (overrides config)
+  --since DURATION    How far back to start (default: 1h)
+  --no-follow         Don't tail live, just print recent logs
+  -h, --help          Show this help
+
+Config:
+  $CONFIG_FILE
+  Copy ecs-logs.example.json to ecs-logs.json and add your accounts.
+EOF
+  exit 0
+}
+
+# --- Argument parsing ---
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --profile)  PROFILE="$2"; shift 2 ;;
+    --region)   REGION="$2"; shift 2 ;;
+    --since)    SINCE="$2"; shift 2 ;;
+    --no-follow) FOLLOW=false; shift ;;
+    -h|--help)  usage ;;
+    *) echo "Unknown option: $1" >&2; exit 1 ;;
+  esac
+done
+
+# --- Dependency checks ---
+MISSING=()
+for cmd in aws fzf jq; do
+  if ! command -v "$cmd" &>/dev/null; then
+    MISSING+=("$cmd")
+  fi
+done
+
+if [[ ${#MISSING[@]} -gt 0 ]]; then
+  echo -e "\033[31mMissing required tools:\033[0m" >&2
+  for cmd in "${MISSING[@]}"; do
+    case "$cmd" in
+      aws) echo "  - aws CLI      → brew install awscli" >&2 ;;
+      fzf) echo "  - fzf          → brew install fzf" >&2 ;;
+      jq)  echo "  - jq           → brew install jq" >&2 ;;
+    esac
+  done
+  exit 1
+fi
+
+if [[ ! -f "$CONFIG_FILE" ]]; then
+  echo -e "\033[31mConfig file not found:\033[0m $CONFIG_FILE" >&2
+  echo "Copy the example and add your accounts:" >&2
+  echo "  cp $SCRIPT_DIR/ecs-logs.example.json $CONFIG_FILE" >&2
+  exit 1
+fi
+
+# --- Helper: run aws with profile/region ---
+awscli() {
+  aws --profile "$PROFILE" --region "$REGION" --output json "$@"
+}
+
+# --- Validate AWS credentials ---
+check_credentials() {
+  echo -e "\033[33mVerifying AWS credentials for profile '$PROFILE'...\033[0m"
+  local identity
+  if ! identity=$(awscli sts get-caller-identity 2>&1); then
+    echo -e "\033[31mAWS credentials are expired or invalid for profile '$PROFILE'.\033[0m" >&2
+    echo "$identity" >&2
+    echo "" >&2
+    echo "Refresh your credentials and try again, e.g.:" >&2
+    echo "  aws sso login --profile $PROFILE" >&2
+    exit 1
+  fi
+  local account_id arn
+  account_id=$(echo "$identity" | jq -r '.Account')
+  arn=$(echo "$identity" | jq -r '.Arn')
+  echo -e "\033[36m→ Authenticated:\033[0m $arn (account $account_id)"
+}
+
+# --- Step 1: Pick account (or use --profile) ---
+if [[ -z "$PROFILE" ]]; then
+  ACCOUNT_NAMES=$(jq -r '.accounts | keys[]' "$CONFIG_FILE")
+  ACCOUNT=$(echo "$ACCOUNT_NAMES" | fzf --prompt="Account > " --height=~20 --border --ansi) || exit 0
+  PROFILE=$(jq -r ".accounts[\"$ACCOUNT\"].profile" "$CONFIG_FILE")
+  if [[ -z "$REGION" ]]; then
+    REGION=$(jq -r ".accounts[\"$ACCOUNT\"].region // \"us-east-1\"" "$CONFIG_FILE")
+  fi
+  echo -e "\033[36m→ Account:\033[0m $ACCOUNT ($PROFILE / $REGION)"
+else
+  # If profile was passed directly, try to find region from config
+  if [[ -z "$REGION" ]]; then
+    REGION=$(jq -r "[.accounts[] | select(.profile == \"$PROFILE\")] | first | .region // \"us-east-1\"" "$CONFIG_FILE" 2>/dev/null || echo "us-east-1")
+  fi
+  echo -e "\033[36m→ Profile:\033[0m $PROFILE / $REGION"
+fi
+
+# --- Step 2: Validate credentials before any ECS calls ---
+check_credentials
+
+# --- Step 3: Pick cluster ---
+echo -e "\033[33mFetching clusters...\033[0m"
+CLUSTER_ARNS=$(awscli ecs list-clusters | jq -r '.clusterArns[]')
+if [[ -z "$CLUSTER_ARNS" ]]; then
+  echo "No ECS clusters found." >&2
+  exit 1
+fi
+CLUSTER_NAMES=$(echo "$CLUSTER_ARNS" | sed 's|.*/||')
+CLUSTER=$(echo "$CLUSTER_NAMES" | fzf --prompt="Cluster > " --height=~20 --border) || exit 0
+echo -e "\033[36m→ Cluster:\033[0m $CLUSTER"
+
+# --- Step 4: Pick service ---
+echo -e "\033[33mFetching services...\033[0m"
+SERVICE_ARNS=$(awscli ecs list-services --cluster "$CLUSTER" | jq -r '.serviceArns[]')
+if [[ -z "$SERVICE_ARNS" ]]; then
+  echo "No services found in cluster $CLUSTER." >&2
+  exit 1
+fi
+SERVICE_NAMES=$(echo "$SERVICE_ARNS" | sed 's|.*/||')
+SERVICE=$(echo "$SERVICE_NAMES" | fzf --prompt="Service > " --height=~20 --border) || exit 0
+echo -e "\033[36m→ Service:\033[0m $SERVICE"
+
+# --- Step 5: Get task definition and running task ---
+echo -e "\033[33mResolving task definition and containers...\033[0m"
+SERVICE_DESC=$(awscli ecs describe-services --cluster "$CLUSTER" --services "$SERVICE")
+TASK_DEF_ARN=$(echo "$SERVICE_DESC" | jq -r '.services[0].taskDefinition')
+
+TASK_DEF=$(awscli ecs describe-task-definition --task-definition "$TASK_DEF_ARN")
+
+# Build a list of containers with their log config
+CONTAINERS=$(echo "$TASK_DEF" | jq -r '
+  .taskDefinition.containerDefinitions[] |
+  select(.logConfiguration.logDriver == "awslogs") |
+  {
+    name: .name,
+    logGroup: .logConfiguration.options["awslogs-group"],
+    streamPrefix: .logConfiguration.options["awslogs-stream-prefix"]
+  } | "\(.name)\t\(.logGroup)\t\(.streamPrefix)"
+')
+
+if [[ -z "$CONTAINERS" ]]; then
+  echo "No containers with awslogs log driver found." >&2
+  exit 1
+fi
+
+# --- Step 6: Pick container ---
+CONTAINER_COUNT=$(echo "$CONTAINERS" | wc -l | tr -d ' ')
+if [[ "$CONTAINER_COUNT" -eq 1 ]]; then
+  SELECTED="$CONTAINERS"
+  CONTAINER_NAME=$(echo "$SELECTED" | cut -f1)
+  echo -e "\033[36m→ Container:\033[0m $CONTAINER_NAME (auto-selected, only one)"
+else
+  CONTAINER_DISPLAY=$(echo "$CONTAINERS" | while IFS=$'\t' read -r name group prefix; do
+    echo "$name  (log: $group, prefix: $prefix)"
+  done)
+  SELECTED_DISPLAY=$(echo "$CONTAINER_DISPLAY" | fzf --prompt="Container > " --height=~20 --border) || exit 0
+  CONTAINER_NAME=$(echo "$SELECTED_DISPLAY" | awk '{print $1}')
+  SELECTED=$(echo "$CONTAINERS" | grep "^${CONTAINER_NAME}	")
+  echo -e "\033[36m→ Container:\033[0m $CONTAINER_NAME"
+fi
+
+LOG_GROUP=$(echo "$SELECTED" | cut -f2)
+STREAM_PREFIX=$(echo "$SELECTED" | cut -f3)
+
+# --- Step 7: Get a running task ID for stream prefix ---
+echo -e "\033[33mFinding running tasks...\033[0m"
+TASK_ARNS=$(awscli ecs list-tasks --cluster "$CLUSTER" --service-name "$SERVICE" --desired-status RUNNING | jq -r '.taskArns[]')
+
+if [[ -z "$TASK_ARNS" ]]; then
+  echo -e "\033[33mNo running tasks found. Tailing all recent streams for this container.\033[0m"
+  STREAM_FILTER="${STREAM_PREFIX}/${CONTAINER_NAME}"
+else
+  # Extract task ID (last segment after /)
+  TASK_ID=$(echo "$TASK_ARNS" | head -1 | sed 's|.*/||')
+  STREAM_FILTER="${STREAM_PREFIX}/${CONTAINER_NAME}/${TASK_ID}"
+  echo -e "\033[36m→ Task:\033[0m $TASK_ID"
+fi
+
+# --- Step 8: Tail logs ---
+echo ""
+echo -e "\033[32m━━━ Tailing $LOG_GROUP ($STREAM_FILTER) ━━━\033[0m"
+echo -e "\033[90mSince: $SINCE | Follow: $FOLLOW | Ctrl+C to stop\033[0m"
+echo ""
+
+TAIL_ARGS=(
+  logs tail "$LOG_GROUP"
+  --since "$SINCE"
+  --format short
+  --color on
+  --log-stream-name-prefix "$STREAM_FILTER"
+)
+
+if [[ "$FOLLOW" == true ]]; then
+  TAIL_ARGS+=(--follow)
+fi
+
+awscli "${TAIL_ARGS[@]}"

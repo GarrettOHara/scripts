@@ -145,6 +145,13 @@ func main() {
 		fmt.Println("⚠️  Time window disabled for this session.")
 	}
 
+	// 3.5. Check license validity
+	if err := checkLicense(); err != nil {
+		fmt.Printf("❌ License check failed: %v\n", err)
+		fmt.Println("📞 Please contact support or check your internet connection.")
+		os.Exit(1)
+	}
+
 	fmt.Printf("✅ Service initialized. Will jiggle mouse after %.1f minute(s) of inactivity.\n", *delayMinutes)
 
 	// 4. Set up graceful shutdown handling.

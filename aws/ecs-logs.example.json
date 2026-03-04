@@ -1,0 +1,12 @@
+{
+  "accounts": {
+    "My Account (Dev)": {
+      "profile": "my-aws-profile-name",
+      "region": "us-east-1"
+    },
+    "My Account (Prod)": {
+      "profile": "my-aws-prod-profile",
+      "region": "us-west-2"
+    }
+  }
+}

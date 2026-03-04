@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stay Active - Productivity Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .features {
+            text-align: left;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            margin: 1rem 0;
+            padding: 0.5rem 0;
+        }
+        
+        .feature strong {
+            color: #2980b9;
+        }
+        
+        .download-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #ecf0f1;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 0.5rem;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #2980b9;
+        }
+        
+        .usage {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .usage code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+        
+        .license-info {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .license-info h3 {
+            color: #856404;
+            margin-bottom: 1rem;
+        }
+        
+        .license-info ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .license-info li {
+            margin: 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">⚡</div>
+            <h1>Stay Active</h1>
+            <p class="subtitle">Keep your remote work sessions active with confidence</p>
+            
+            <div class="features">
+                <div class="feature">
+                    <strong>🎯 Smart Activity Detection:</strong> Monitors keyboard and mouse input globally
+                </div>
+                <div class="feature">
+                    <strong>⚙️ Configurable Timing:</strong> Set custom idle timeouts to match your workflow
+                </div>
+                <div class="feature">
+                    <strong>🤏 Subtle Movement:</strong> Minimal 1-pixel mouse jiggles that won't disrupt your work
+                </div>
+                <div class="feature">
+                    <strong>🛡️ Professional Grade:</strong> Thread-safe, efficient, and reliable for remote professionals
+                </div>
+            </div>
+            
+            <div class="usage">
+                <h3>Quick Start</h3>
+                <p>Download the binary and run with custom timing:</p>
+                <br>
+                <code>./stay-active -delay 2.0</code> (2 minutes idle timeout)<br>
+                <code>./stay-active -delay 5.0</code> (5 minutes idle timeout)
+            </div>
+            
+            <div class="license-info">
+                <h3>📋 License Information</h3>
+                <p><strong>Monthly License Required:</strong> Stay Active requires a valid license that renews monthly.</p>
+                <ul>
+                    <li>✅ <strong>Automatic Setup:</strong> License generated on first run</li>
+                    <li>🔄 <strong>Monthly Renewal:</strong> Licenses expire after 30 days</li>
+                    <li>🔐 <strong>Secure Validation:</strong> License checked on each startup</li>
+                    <li>💾 <strong>Offline Cache:</strong> License stored locally for convenience</li>
+                </ul>
+            </div>
+
+            <div class="download-section">
+                <h3>Download Stay Active</h3>
+                <p>Choose your platform:</p>
+                <br>
+                <a href="#" class="download-btn">📱 macOS (Intel)</a>
+                <a href="#" class="download-btn">🔧 macOS (Apple Silicon)</a>
+                <a href="#" class="download-btn">🪟 Windows</a>
+                <a href="#" class="download-btn">🐧 Linux</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

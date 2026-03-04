@@ -1,0 +1,6 @@
+{
+  "accounts": {
+    "Ops Legacy": { "profile": "gn-ops-legacy", "region": "us-east-1" },
+    "CogEng Dev": { "profile": "gn-cogeng-dev", "region": "us-east-1" }
+  }
+}
